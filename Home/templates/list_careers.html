@@ -1,0 +1,38 @@
+{% extends 'layout.html' %} {% block title %} {{titulo}} {% endblock title %} 
+{%block content %}
+<h1 class="text-center py-2">{{titulo}}</h1>
+<table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Código</th>
+      <th scope="col">Horas</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for carrera in carreras %}
+    <tr class="text-center">
+      <th scope="row">{{carrera.id}}</th>
+      <td>{{carrera.name}}</td>
+      <td>{{carrera.shortname}}</td>
+      <td>{{carrera.imagen }}
+        <img src="{{carrera.imagen.url }}" alt="">
+        </td>
+      <td>{{carrera.state}}</td>
+      <td>
+        <a
+          href="{% url 'delete_career' id=carrera.id %}"
+          class="btn btn-outline-danger"
+        >
+          Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
