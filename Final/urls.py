@@ -1,21 +1,29 @@
-"""Final URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings
+from Home import views as home_views
 urlpatterns = [
+    path('', home_views.home, name="home"),
+    path('home/', home_views.home, name="home"),
     path('admin/', admin.site.urls),
+    path('list_courses', home_views.list_courses, name="list_courses"),
+    path('delete_course/<int:id>',
+         home_views.delete_course, name="delete_course"),
+    path('save_course/', home_views.save_course, name="save_course"),
+    path('create_course/', home_views.create_course, name="create_course"),
+
+    path('list_careers', home_views.list_careers, name="list_careers"),
+    path('delete_career/<int:id>',
+         home_views.delete_career, name="delete_career"),
+    path('save_career/', home_views.save_career, name="save_career"),
+    path('create_career/', home_views.create_career, name="create_career"),
+
 ]
+
+
+# Configuración para la carga de imágenes
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
